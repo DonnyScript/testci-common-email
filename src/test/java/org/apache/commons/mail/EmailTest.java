@@ -127,7 +127,7 @@ public class EmailTest {
     public void testMimeMessageEmptySubject() throws Exception {
         mimeEmail.addBcc(TEST_EMAILS);
         mimeEmail.addCc(TEST_EMAILS);
-        mimeEmail.addHeader("Don", "don@gmail.com");
+        mimeEmail.addHeader("Don", "dony@gmail.com");
         mimeEmail.addReplyTo("jared@gmail.com");
 
         mimeEmail.setHostName("localhost");
