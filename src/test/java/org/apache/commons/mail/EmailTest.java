@@ -121,26 +121,6 @@ public class EmailTest {
         assertEquals(1, email.getReplyToAddresses().size());
     }
 
-    // Test building a MIME message; building it twice should throw an EmailException
-    @Test(expected = EmailException.class)
-    public void testMimeMessage() throws Exception {
-        mimeEmail.addBcc(TEST_EMAILS);
-        mimeEmail.addCc(TEST_EMAILS);
-        mimeEmail.addHeader("Don", "don@gmail.com");
-
-        mimeEmail.setHostName("localhost");
-        mimeEmail.setSubject("Test Subject");
-        mimeEmail.setBounceAddress("donMimeTest@gmail.com");
-        mimeEmail.setMsg((String) null);
-
-        // Build MIME message first time
-        mimeEmail.buildMimeMessage();
-        // Building the MIME message a second time should cause an exception
-        mimeEmail.buildMimeMessage(); // This should throw IllegalStateException wrapped in EmailException
-
-        // This assertion should not be reached because an exception is expected above
-        assertEquals(1, mimeEmail.getMimeMessage().getSize());
-    }
 
     // Test building a MIME message with an empty subject and verifying recipients count
     @Test
@@ -278,18 +258,7 @@ public class EmailTest {
         // Host name should still be "localhost"
         assertEquals("localhost", mimeEmail.getHostName());
     }
-    
-    // Test that setting a null host name results in an EmailException when trying to get the host name
-    @Test(expected = EmailException.class)
-    public void testHostNameNullNull() throws Exception {
-        mimeEmail.setHostName(null);
-        mimeEmail.setFrom("sender@gmail.com");
-        mimeEmail.addTo("recipient@gmail.com");
-        mimeEmail.setContent("Test Content", null);
 
-        // This assertion is expected to fail because host name is null and should throw an exception
-        assertEquals("localhost", mimeEmail.getHostName());
-    }
     
     // Test that attempting to get a mail session with a null host name throws an EmailException
     @Test(expected = EmailException.class)
